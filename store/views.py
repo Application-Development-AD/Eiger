@@ -5,3 +5,7 @@ from django.shortcuts import render
 def search(request):
     context = {}
     return render (request, 'store/search.html', context)
+
+def cart(request):
+     context = {}
+     return render(request, 'store/cart.html', context)
