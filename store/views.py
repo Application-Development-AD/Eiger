@@ -9,3 +9,7 @@ def search(request):
 def cart(request):
      context = {}
      return render(request, 'store/cart.html', context)
+
+def product(request):
+     context = {}
+     return render(request, 'store/product.html', context)
