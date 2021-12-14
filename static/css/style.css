@@ -97,32 +97,3 @@ h1,h2,h3,h4,h5,h6{
 .hidden{
 	display: none!important;
 }
-
-.navbar-brand img {
-    margin-top: -5px;
-    width:100% !important;
-    height: fit-content;
-}
-
-.header-text {
-    background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
-    display: block;
-    float: none;
-    font-size: 12px;
-    margin: 300px auto auto;
-    padding: 42px !important;
-    text-align: center;
-    width: 100%;
-}
-
-.header-btn {
-    border: 2px solid #fff;
-    color: #fff;
-    display: block;
-    font-size: 22px;
-    line-height: 42px;
-    margin: 50px auto auto;
-    text-align: center;
-    width: 235px;
-	transition: all 0.35s ease 0s;
-}

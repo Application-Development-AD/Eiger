@@ -2,14 +2,18 @@ from django.shortcuts import render
 
 # Create your views here.
 
-def search(request):
-    context = {}
-    return render (request, 'store/search.html', context)
+def store(request):
+     context = {}
+     return render(request, 'store/store.html', context)
 
 def cart(request):
      context = {}
      return render(request, 'store/cart.html', context)
 
-def product(request):
+def checkout(request):
+      context = {}
+      return render(request, 'store/checkout.html', context)
+
+def search(request):
      context = {}
-     return render(request, 'store/product.html', context)
+     return render(request, 'store/search.html', context)
