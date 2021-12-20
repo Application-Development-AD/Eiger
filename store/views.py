@@ -9,3 +9,11 @@ def search(request):
 def cart(request):
      context = {}
      return render(request, 'store/cart.html', context)
+
+def login(request):
+    context = {}
+    return render(request, 'store/login.html', context)
+
+def forgotpassword(request):
+    context = {}
+    return render(request, 'store/forgotpassword.html', context)
