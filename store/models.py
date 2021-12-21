@@ -1,5 +1,6 @@
 from typing import Reversible
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Category(models.Model):
@@ -17,7 +18,7 @@ class Category(models.Model):
     
 class Product(models.Model):
     category = models.ForeignKey(Category,related_name='product', on_delete=models.CASCADE)
-    #created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_creator')
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_creator')
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255,default='admin')
     description = models.TextField(blank=True)
