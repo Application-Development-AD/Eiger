@@ -1,12 +1,9 @@
-form {
-    border: 3px solid #f1f1f1;
-  }
   
   /* Full-width inputs */
   input[type=text], input[type=password] {
     width: 100%;
     padding: 12px 20px;
-    margin: 0 auto;
+    margin: auto;
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
@@ -49,7 +46,11 @@ form {
   
   /* Add padding to containers */
   .container {
-    padding: 16px;
+    width: 50%;
+    margin: 100px auto;
+    border-radius: 5px;
+    background-color: #fdfbfb;
+    padding: 20px 50px 30px 50px;
   }
   
   /* The "Forgot password" text */
@@ -67,4 +68,19 @@ form {
     .cancelbtn {
       width: 100%;
     }
+  }
+
+  box {
+    background-color: lightgrey;
+    position: absolute;
+    top: 100px;
+    left: 300px;
+    width: 600px;
+    padding: 50px;
+    margin: 20px;
+  }
+
+  text {
+    font-size: 25px;
+    display: inline-block;
   }

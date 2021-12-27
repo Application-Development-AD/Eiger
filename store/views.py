@@ -17,3 +17,7 @@ def login(request):
 def forgotpassword(request):
     context = {}
     return render(request, 'store/forgotpassword.html', context)
+
+def accountDetails(request):
+    context = {}
+    return render(request, 'store/accountDetails.html', context)
