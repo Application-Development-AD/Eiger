@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf_token" content="{{ csrf_token }}">
     <title>Sign Up Form by Colorlib</title>
 
     <!-- Font Icon -->
@@ -24,6 +25,21 @@
                     <div class="signup-form">
                         <h2 class="form-title">Sign up</h2>
                         <form method="POST" class="register-form" id="register-form">
+                            {% csrf_token %}
+                            {% for field in registration_form %}
+                            <p>
+                                {{field.label_tags}}
+                                {{field}}
+
+                                {% if field.help_text %}
+                                    <small style="color: grey;"> {{field.help_text}} </small>
+                                {% endif %}
+
+                                {% for error in field.errors %}
+                                    <p style="color: red;"> {{error}} </p>
+                                {% endfor %}
+                            </p>
+                            {% endfor %}
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input type="text" name="name" id="name" placeholder="Your Name"/>
