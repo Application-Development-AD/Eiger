@@ -106,9 +106,6 @@ class ShippingAddress(models.Model):
 	def __str__(self):
 		return self.address
 
-
-
-
     
 class Product(models.Model):
     category = models.ForeignKey(Category,related_name='product', on_delete=models.CASCADE)
