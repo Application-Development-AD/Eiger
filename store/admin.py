@@ -19,5 +19,5 @@ admin.site.register(Product)
  #   list_display = ['title','author','slug','price',
  #                'in_stock','created','updated']
  #   list_filter = ['in_stock','in_active']
-  #  prepopulated_fields = {'slug':('title',)}
+ #   prepopulated_fields = {'slug':('title',)}
 
