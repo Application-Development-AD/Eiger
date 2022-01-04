@@ -1,8 +1,8 @@
 from django.contrib.auth.forms import UsernameField
 from django.db import models
 from django.forms.fields import EmailField
+from django.contrib.auth.models import User
 
-# Create your models here.
 class Account(models.Model):
     email = models.EmailField(default=None)
     username = models.CharField(max_length=50)
@@ -11,7 +11,7 @@ class Account(models.Model):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
-from django.contrib.auth.models import User
+
 
 # Create your models here.
 
@@ -58,16 +58,16 @@ class Meta:
     verbose_name_plural = 'Products'
     ordering = ('-created',)
 
-def get_absolute_url(self):
-    return reverse('product:product_detail', args=[self.slug])
+#def get_absolute_url(self):
+ #   return reverse('product:product_detail', args=[self.slug])
 
-#@property
-#def imageURL(self):
-#	try:
-#		url = self.image.models.url
-#	except: 
-#		url =''
-#	return url
+@property
+def imageURL(self):
+	try:
+		url = self.image.models.url
+	except: 
+		url =''
+	return url
 	
 def __str__(self):
     return self.title 
