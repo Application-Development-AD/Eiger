@@ -22,7 +22,7 @@ class Product(models.Model):
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255,default='admin')
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='static/images/')
     slug = models.SlugField(max_length=255)
     price = models.DecimalField(max_digits=5, decimal_places=2)
     in_stock = models.BooleanField(default=True)
