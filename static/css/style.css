@@ -3,7 +3,7 @@ body{
 }
 
 h1,h2,h3,h4,h5,h6{
-	color:hsl(0, 0%, 30%);
+	color: black;
 }
 
 .box-element{
@@ -15,7 +15,7 @@ h1,h2,h3,h4,h5,h6{
 
 .thumbnail{
 	width: 100%;
-	height: 200px;
+	height: 100px;
 	-webkit-box-shadow: -1px -3px 5px -2px rgba(214,214,214,1);
     -moz-box-shadow: -1px -3px 5px -2px rgba(214,214,214,1);
     box-shadow: -1px -3px 5px -2px rgba(214,214,214,1);
@@ -43,34 +43,57 @@ h1,h2,h3,h4,h5,h6{
 	width: 20px;
 	height: 25px;
 	border-radius: 50%;
-	font-size: 14px;
+	font-size: 5px;
 }
 
-.navbar-brand img {
-    margin-top: -5px;
-    width:100% !important;
-    height: fit-content;
+.col-lg-4, .col-lg-6, .col-lg-8, .col-lg-12{
+	margin-top: 10px;
 }
 
-.header-text {
-    background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
-    display: block;
-    float: none;
-    font-size: 12px;
-    margin: 300px auto auto;
-    padding: 42px !important;
-    text-align: center;
-    width: 100%;
+.btn{
+	border-radius: 0;
 }
 
-.header-btn {
-    border: 2px solid #fff;
-    color: #fff;
-    display: block;
-    font-size: 22px;
-    line-height: 42px;
-    margin: 50px auto auto;
-    text-align: center;
-    width: 235px;
-	transition: all 0.35s ease 0s;
+.row-image{
+	width: 100px;
+}
+
+.form-field{
+	width:250px;
+	display: inline-block;
+	padding: 5px;
+}
+
+.cart-row{
+	display: flex;
+    align-items: flex-stretch;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ececec;
+
+}
+
+.quantity{
+	display: inline-block;
+	font-weight: 700;
+	padding-right:10px;
+	
+
+}
+
+.chg-quantity{
+	width: 12px;
+	cursor: pointer;
+	display: block;
+	margin-top: 5px;
+	transition:.1s;
+}
+
+.chg-quantity:hover{
+	opacity: .6;
+}
+
+
+.hidden{
+	display: none!important;
 }

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>Eiger Bookstore</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+<style>
+
+.sidenav {
+    height: 100%;
+    width: 300px;
+    position: fixed;
+    z-index: 1;
+    top: 151px;
+    left: 0;
+	  background-color: white;
+    overflow-x: hidden;
+    padding-top: 20px;
+    border-right: 1px solid teal;
+  }
+  
+  .sidenav a {
+    padding: 20px 20px 20px 32px;
+    text-decoration: none;
+    font-size: 18px;
+    color: teal;
+    display: block;
+  }
+  
+  .sidenav a:hover {
+    background-color: white;
+    color: black;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 25px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+  td,th{
+    padding: 20px;
+  }
+
+</style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+        <a class="navbar-brand" href="#"><img src="{% static 'images/logo.png' %}"></a>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button style="color: white; border-color: white;" class="btn btn-outline-success my-2 my-sm-0" type="submit">Go</button>
+            <a style="text-indent: 100px; font-size: 40px; color: white;">WELCOME,</a>
+        </form>
+        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a style="font-size: 40px; color: white;" ></a>
+            </li>
+          </ul>
+          
+          <div class="form-inline my-2 my-lg-0">
+            <a href="{% url 'login' %}"class="btn btn-warning">Login</a>
+                    
+            <a href="{% url 'cart' %}">
+            <img  id="cart-icon" src="{% static 'images/cart.png' %}">
+            </a>
+            <p id="cart-total">0</p>
+           
+            </div>
+        </div>
+    </nav>
+    <div class="sidenav">
+        <a style="text-indent: 20px;" href="/main/">Home</a>
+        <a style="text-indent: 20px;" href="/accountDetails/">My Account</a>
+        <a style="text-indent: 20px;" href="/payments/">Payments</a>
+        <a style="text-indent: 20px;" href="/settings/">Settings</a>
+    </div> 
+    <h2 style="font-family: 'Times New Roman', Times, serif; text-indent: 400px; padding-top: 50px;">SETTINGS</h2><hr style="height:1px;width:50%;color:gray;background-color:gray">
+<table>
+    <tr>
+      <th style="text-indent: 400px;">Name:</th>
+      <td style="text-indent: 70px;">-</td>
+      <td style="text-indent: 500px;"><input style="background-color: #4f868c; color: white;" type="submit" value="Edit"></td>
+    </tr>
+    <tr>
+      <th style="text-indent: 400px;">Passsword:</th>
+      <td style="text-indent: 70px;">-</td>
+      <td style="text-indent: 500px;"><input style="background-color: #4f868c; color: white;" type="submit" value="Edit"></td>
+    </tr>
+    <tr>
+      <th style="text-indent: 400px;">Address:</th>
+      <td style="text-indent: 70px;">-</td>
+      <td style="text-indent: 500px;"><input style="background-color: #4f868c; color: white;" type="submit" value="Edit"></td>
+    </tr>
+    <tr>
+      <th style="text-indent: 400px;">Email:</th>
+      <td style="text-indent: 70px;">-</td>
+      <td style="text-indent: 500px;"><input style="background-color: #4f868c; color: white;" type="submit" value="Edit"></td>
+    </tr>
+    <tr>
+      <th style="text-indent: 400px;">Contact No:</th>
+      <td style="text-indent: 70px;">-</td>
+      <td style="text-indent: 500px;"><input style="background-color: #4f868c; color: white;" type="submit" value="Edit"></td>
+    </tr>
+    </table>
+
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
