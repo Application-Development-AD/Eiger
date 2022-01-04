@@ -3,10 +3,20 @@ from .models import *
 
 # Create your views here.
 
+<<<<<<< HEAD
+def main(request):
+    context = {}
+    return render (request, 'store/main.html', context)
+
+def search(request):
+    context = {}
+    return render (request, 'store/search.html', context)
+=======
 def store(request):
      products = Product.objects.all()
      context = {'products' :products}
      return render(request, 'store/store.html', context)
+>>>>>>> main
 
 def cart(request):
      if request.user.is_authenticated:
@@ -26,4 +36,28 @@ def checkout(request):
 
 def search(request):
      context = {}
+<<<<<<< HEAD
+     return render(request, 'store/cart.html', context)
+
+def login(request):
+    context = {}
+    return render(request, 'store/login.html', context)
+
+def forgotpassword(request):
+    context = {}
+    return render(request, 'store/forgotpassword.html', context)
+
+def accountDetails(request):
+    context = {}
+    return render(request, 'store/accountDetails.html', context)
+
+def settings(request):
+    context = {}
+    return render(request, 'store/settings.html', context)
+
+def payments(request):
+    context = {}
+    return render(request, 'store/payments.html', context)
+=======
      return render(request, 'store/search.html', context)
+>>>>>>> main
