@@ -1,6 +1,5 @@
 from django.contrib.auth.forms import UsernameField
 from django.db import models
-<<<<<<< HEAD
 from django.forms.fields import EmailField
 
 # Create your models here.
@@ -12,7 +11,6 @@ class Account(models.Model):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
-=======
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -47,7 +45,7 @@ class Product(models.Model):
 	title = models.CharField(max_length=255)
 	author = models.CharField(max_length=255,default='admin')
 	description = models.TextField(blank=True)
-	image = models.ImageField(null=True, blank=True)#(upload_to='images/')
+	image = models.ImageField(null=True, blank=True, upload_to='images/')
 	slug = models.SlugField(max_length=255)
 	price = models.DecimalField(max_digits=5, decimal_places=2)
 	in_stock = models.BooleanField(default=True)
@@ -120,4 +118,3 @@ class ShippingAddress(models.Model):
 
 	def __str__(self):
 		return self.address
->>>>>>> main
