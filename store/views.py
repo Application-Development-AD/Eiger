@@ -8,7 +8,7 @@ def main(request):
 
 def search(request):
     context = {}
-    return render (request, 'store/search.html', context)
+    #return render (request, 'store/search.html', context)
 
 def cart(request):
      context = {}
