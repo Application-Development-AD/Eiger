@@ -1,4 +1,18 @@
+from django.contrib.auth.forms import UsernameField
 from django.db import models
+<<<<<<< HEAD
+from django.forms.fields import EmailField
+
+# Create your models here.
+class Account(models.Model):
+    email = models.EmailField(default=None)
+    username = models.CharField(max_length=50)
+    password = models.CharField(max_length=20)
+    password2 = models.CharField(max_length=20)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+=======
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -106,3 +120,4 @@ class ShippingAddress(models.Model):
 
 	def __str__(self):
 		return self.address
+>>>>>>> main
