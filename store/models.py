@@ -1,4 +1,5 @@
 from typing import Reversible
+from django import urls
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -22,7 +23,7 @@ class Product(models.Model):
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255,default='admin')
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to='static/images/')
+    image = models.ImageField(null=True, blank=True)
     slug = models.SlugField(max_length=255)
     price = models.DecimalField(max_digits=5, decimal_places=2)
     in_stock = models.BooleanField(default=True)
@@ -33,9 +34,14 @@ class Product(models.Model):
 class Meta:
     verbose_name_plural = 'Products'
     ordering = ('-created',)
+    
+@property
+def imageurl(self):
+    return url
 
-def get_absolute_url(self):
-    return Reversible('product:product_detail', args=[self.slug])
+
+#def get_absolute_url(self):
+#    return Reversible('product:product_detail', args=[self.slug])
 
 def __str__(self):
     return self.title 
