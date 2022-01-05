@@ -1,20 +1,19 @@
 from django.contrib.auth.forms import UsernameField
+from typing import Reversible
 from django.db import models
+from django import urls
 from django.forms.fields import EmailField
 from django.contrib.auth.models import User
 
 class Account(models.Model):
-    email = models.EmailField(default=None)
     username = models.CharField(max_length=50)
     password = models.CharField(max_length=20)
     password2 = models.CharField(max_length=20)
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
-
-
-# Create your models here.
-
+ #   USERNAME_FIELD = 'email'
+ #   REQUIRED_FIELDS = []
+#def __str__(self):
+#		return self.username
 
 class Customer(models.Model):
 	user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
@@ -54,9 +53,9 @@ class Product(models.Model):
 	updated = models.DateTimeField(auto_now=True)
 	digital = models.BooleanField(default=False, null=True, blank=False)
 
-class Meta:
-    verbose_name_plural = 'Products'
-    ordering = ('-created',)
+#class Meta:
+ #   verbose_name_plural = 'Products'
+ #   ordering = ('-created',)
 
 #def get_absolute_url(self):
  #   return reverse('product:product_detail', args=[self.slug])
@@ -103,7 +102,7 @@ class OrderItem(models.Model):
 
 	@property
 	def get_total(self):
-		total = self.product.price * self.quantity
+		total = sum([item.quantity for item in orderitems])
 		return total
 
 
