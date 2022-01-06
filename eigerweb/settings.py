@@ -57,7 +57,7 @@ ROOT_URLCONF = 'eigerweb.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -65,6 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'store.view.categories',
             ],
         },
     },
@@ -123,7 +124,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/images/'
+<<<<<<< HEAD
 MEDIA_ROOT = os.path.join(BASE_DIR,'/images/')
+=======
+MEDIA_ROOT = os.path.join(BASE_DIR,'static/images')
+>>>>>>> eiger_nasrin
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
