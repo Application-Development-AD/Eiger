@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django.contrib.auth.forms import UsernameField
 from typing import Reversible
 from django.db import models
@@ -16,6 +17,11 @@ class Account(models.Model):
 	REQUIRED_FIELDS = []
 	def __str__(self):
 		return self.name
+=======
+from typing import Reversible
+from django.db import models
+from django.contrib.auth.models import User
+>>>>>>> eiger_nasrin
 
 class Category(models.Model):
 	name = models.CharField(max_length=255, db_index=True)
@@ -30,6 +36,14 @@ class Category(models.Model):
 	def __str__(self):
 		return self.name
 
+<<<<<<< HEAD
+=======
+    class Meta:
+        verbose_name_plural = 'categories'
+    
+    def get_absolute_url(self):
+        return Reversible('product:product_detail', args=[self.slug])
+>>>>>>> eiger_nasrin
 
 class Product(models.Model):
 	category = models.ForeignKey(Category,related_name='product', on_delete=models.CASCADE)
@@ -51,7 +65,11 @@ class Meta:
     ordering = ('-created',)
 
 def get_absolute_url(self):
+<<<<<<< HEAD
 	return reverse('product:product_detail', args=[self.slug])
+=======
+    return Reversible('product:product_detail', args=[self.slug])
+>>>>>>> eiger_nasrin
 
 @property
 def imageURL(self):
