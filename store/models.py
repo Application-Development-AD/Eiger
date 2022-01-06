@@ -9,7 +9,7 @@ class Category(models.Model):
     slug = models.SlugField(max_length=255, unique=True)
 
     class Meta:
-        verbose_name_plural = 'categories'
+        verbose_name_plural = 'Category'
     
     def get_absolute_url(self):
         return reverse('store:category_list', args=[self.slug])
