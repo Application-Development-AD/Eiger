@@ -1,11 +1,10 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 from django.contrib.auth.forms import UsernameField
 from typing import Reversible
 from django.db import models
 from django import urls
 from django.forms.fields import EmailField
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 class Account(models.Model):
 	username = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
@@ -18,17 +17,7 @@ class Account(models.Model):
 	REQUIRED_FIELDS = []
 	def __str__(self):
 		return self.name
-=======
-from typing import Reversible
-from django.db import models
-from django.contrib.auth.models import User
->>>>>>> eiger_nasrin
-=======
-from django import urls
-from django.db import models
-from django.contrib.auth.models import User
-from django.urls import reverse
->>>>>>> eiger_nasrin
+
 
 class Category(models.Model):
 	name = models.CharField(max_length=255, db_index=True)
@@ -43,21 +32,10 @@ class Category(models.Model):
 	def __str__(self):
 		return self.name
 
-<<<<<<< HEAD
-=======
-    class Meta:
-        verbose_name_plural = 'categories'
-    
-    def get_absolute_url(self):
-<<<<<<< HEAD
-        return Reversible('product:product_detail', args=[self.slug])
->>>>>>> eiger_nasrin
-=======
-        return reverse('store:category_list', args=[self.slug])
->>>>>>> eiger_nasrin
+
+
 
 class Product(models.Model):
-<<<<<<< HEAD
 	category = models.ForeignKey(Category,related_name='product', on_delete=models.CASCADE)
 	created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_creator')
 	title = models.CharField(max_length=255)
@@ -70,40 +48,15 @@ class Product(models.Model):
 	in_active = models.BooleanField(default=True)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
-	digital = models.BooleanField(default=False, null=True, blank=False)
-=======
-    category = models.ForeignKey(Category,related_name='product', on_delete=models.CASCADE)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_creator')
-    title = models.CharField(max_length=255)
-    author = models.CharField(max_length=255,default='admin')
-    description = models.TextField(blank=True)
-    image = models.ImageField(null=True, blank=True)
-    slug = models.SlugField(max_length=255)
-    price = models.DecimalField(max_digits=5, decimal_places=2)
-    in_stock = models.BooleanField(default=True)
-    in_active = models.BooleanField(default=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
->>>>>>> eiger_nasrin
+
 
 class Meta:
     verbose_name_plural = 'Products'
     ordering = ('-created',)
 
 def get_absolute_url(self):
-<<<<<<< HEAD
-<<<<<<< HEAD
 	return reverse('product:product_detail', args=[self.slug])
-=======
-    return Reversible('product:product_detail', args=[self.slug])
->>>>>>> eiger_nasrin
-=======
-        return reverse('store:product_detail', args=[self.slug])
-    
-@property
-def imageurl(self):
-    return url
->>>>>>> eiger_nasrin
+   
 
 @property
 def imageURL(self):

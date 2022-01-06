@@ -1,17 +1,13 @@
-<<<<<<< HEAD
 from django import forms
 from django.http import response
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from store.forms import RegistrationForm
 import store
 from django.shortcuts import render
 from .models import *
-=======
-from django.shortcuts import get_object_or_404, render
 from .models import Category, Product
->>>>>>> eiger_nasrin
 
 # Create your views here.
 
@@ -43,7 +39,6 @@ def search(request):
      context = {}
      return render(request, 'store/cart.html', context)
 
-<<<<<<< HEAD
 # Start 
 def registration_view(request):
     context = {}
@@ -84,7 +79,6 @@ def settings(request):
 def payments(request):
     context = {}
     return render(request, 'store/payments.html', context)
-=======
 def categories(request):
     return{
         'categories': Category.objects.all()
@@ -107,4 +101,3 @@ def category_list(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
     products = Product.objects.filter(category=category)
     return render(request, 'store/products/category.html', {'category':category, 'products':products})
->>>>>>> eiger_nasrin
