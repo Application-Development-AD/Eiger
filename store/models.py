@@ -33,8 +33,6 @@ class Category(models.Model):
 		return self.name
 
 
-
-
 class Product(models.Model):
 	category = models.ForeignKey(Category,related_name='product', on_delete=models.CASCADE)
 	created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_creator')
@@ -86,6 +84,12 @@ class Order(models.Model):
 		total = sum([item.get_total for item in orderitems])
 		return total
 
+	@property
+	def get_cart_items(self):
+		orderitems = self.orderitem_set.all()
+		total = sum([item.quantity for item in orderitems])
+		return total
+
 	
 
 class OrderItem(models.Model):
@@ -96,7 +100,7 @@ class OrderItem(models.Model):
 
 	@property
 	def get_total(self):
-		total = sum([item.quantity for item in orderitems])
+		total = self.product.price * self.quantity
 		return total
 
 
