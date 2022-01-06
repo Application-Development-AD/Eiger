@@ -40,6 +40,10 @@ def get_absolute_url(self):
     
 @property
 def imageurl(self):
+    try:
+        url = self.image.models.url
+    except:
+        url=''
     return url
 
 def __str__(self):
