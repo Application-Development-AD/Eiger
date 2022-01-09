@@ -15,16 +15,13 @@ class Account(models.Model):
 
 	USERNAME_FIELD = 'email'
 	REQUIRED_FIELDS = []
-	def __str__(self):
-		return self.name
-
 
 class Category(models.Model):
 	name = models.CharField(max_length=255, db_index=True)
 	slug = models.SlugField(max_length=255, unique=True)
 	
 	class Meta:
-		verbose_name_plural = 'categories'
+		verbose_name_plural = 'Category'
 		
 	def get_absolute_url(self):
 		return reverse('product:product_detail', args=[self.slug])
