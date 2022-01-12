@@ -11,9 +11,9 @@ from .models import Category, Product
 
 # Create your views here.
 
-def home(request):
+def main(request):
     context = {}
-    return render (request, 'store/home.html', context)
+    return render (request, 'store/main.html', context)
 
 def search(request):
     context = {}
