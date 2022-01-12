@@ -43,7 +43,7 @@ class Product(models.Model):
 	in_active = models.BooleanField(default=True)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
-
+	
 
 class Meta:
     verbose_name_plural = 'Products'
