@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Account(models.Model):
     email = models.EmailField(default=None)
-    username = models.CharField(max_length=50)
+    username = models.OneToOneField(User,null=True,blank=True,on_delete=models.CASCADE)
     password = models.CharField(max_length=20)
     password2 = models.CharField(max_length=20)
 
