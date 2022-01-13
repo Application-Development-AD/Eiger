@@ -7,9 +7,12 @@ from store.forms import RegistrationForm
 import store
 from django.shortcuts import render
 from .models import *
-from .models import Category, Product
 
 # Create your views here.
+
+def main(request):
+    context = {}
+    return render (request, 'store/main.html', context)
 
 def home(request):
     context = {}
@@ -86,10 +89,11 @@ def categories(request):
     #context = {}
     #return render(request, 'store/category.html',context)
 
-#get all product
+#get all product - query
 def all_products(request):
     products = Product.objects.all()
-    return render(request, 'store/home.html', {'products':products})
+    context = {'products':products}
+    return render(request, 'store/home.html', context)
 
 #get individual product
 def product_detail(request, slug):

@@ -64,10 +64,13 @@ class Meta:
 def get_absolute_url(self):
 	return reverse('product:detail', args=[self.slug])
    
-
 @property
 def imageurl(self):
-	return url
+    try:
+        url = self.image.models.url
+    except:
+        url=''
+    return url
 	
 def __str__(self):
     return self.title 
