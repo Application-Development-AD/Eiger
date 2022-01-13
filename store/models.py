@@ -19,7 +19,7 @@ class Account(models.Model):
 
 
 class Customer(models.Model):
-	user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
+	#user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
 	name = models.CharField(max_length=200, null=True)
 	username = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
 	password2 = models.CharField(max_length=20)
