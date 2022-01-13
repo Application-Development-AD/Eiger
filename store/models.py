@@ -24,7 +24,7 @@ class Category(models.Model):
 		verbose_name_plural = 'Category'
 		
 	def get_absolute_url(self):
-		return reverse('product:product_detail', args=[self.slug])
+		return reverse('product:detail', args=[self.slug])
 	
 	def __str__(self):
 		return self.name
@@ -36,29 +36,25 @@ class Product(models.Model):
 	title = models.CharField(max_length=255)
 	author = models.CharField(max_length=255,default='admin')
 	description = models.TextField(blank=True)
-	image = models.ImageField(null=True, blank=True, upload_to='images/')
+	image = models.ImageField(null=True, blank=True)
 	slug = models.SlugField(max_length=255)
 	price = models.DecimalField(max_digits=5, decimal_places=2)
 	in_stock = models.BooleanField(default=True)
 	in_active = models.BooleanField(default=True)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
-	
+
 
 class Meta:
     verbose_name_plural = 'Products'
     ordering = ('-created',)
 
 def get_absolute_url(self):
-	return reverse('product:product_detail', args=[self.slug])
+	return reverse('product:detail', args=[self.slug])
    
 
 @property
-def imageURL(self):
-	try:
-		url = self.image.models.url
-	except: 
-		url =''
+def imageurl(self):
 	return url
 	
 def __str__(self):
