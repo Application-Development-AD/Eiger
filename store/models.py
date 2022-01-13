@@ -7,10 +7,22 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 class Account(models.Model):
-	username = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
-	email = models.CharField(max_length=200)
-	password2 = models.CharField(max_length=20)
+    username = models.OneToOneField(User,null=True,blank=True,on_delete=models.CASCADE)
+    password = models.CharField(max_length=20)
+    password2 = models.CharField(max_length=20)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+
+# Create your models here.
+
+
+class Customer(models.Model):
+	#user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
 	name = models.CharField(max_length=200, null=True)
+	username = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
+	password2 = models.CharField(max_length=20)
 	password = models.CharField(max_length=20)
 
 	USERNAME_FIELD = 'email'
