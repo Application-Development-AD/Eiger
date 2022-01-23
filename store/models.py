@@ -63,11 +63,11 @@ class Meta:
 
 def get_absolute_url(self):
 	return reverse('product:detail', args=[self.slug])
-   
+
 @property
-def imageurl(self):
+def imageURL(self):
     try:
-        url = self.image.models.url
+        url = self.image.url
     except:
         url=''
     return url
@@ -78,7 +78,7 @@ def __str__(self):
 
 
 class Order(models.Model):
-	customer = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True, blank=True)
+	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
 	date_ordered = models.DateTimeField(auto_now_add=True)
 	complete = models.BooleanField(default=False)
 	transaction_id = models.CharField(max_length=100, null=True)
@@ -113,7 +113,7 @@ class OrderItem(models.Model):
 
 
 class ShippingAddress(models.Model):
-	customer = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True)
+	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
 	order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
 	address = models.CharField(max_length=200, null=False)
 	city = models.CharField(max_length=200, null=False)
