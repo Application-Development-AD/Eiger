@@ -6,44 +6,18 @@ from django.forms.fields import EmailField
 from django.contrib.auth.models import User
 from django.urls import reverse
 
-class Account(models.Model):
-    username = models.OneToOneField(User,null=True,blank=True,on_delete=models.CASCADE)
-    password = models.CharField(max_length=20)
-    password2 = models.CharField(max_length=20)
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
-
-
-# Create your models here.
-
 
 class Customer(models.Model):
-	#user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
+	user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
 	name = models.CharField(max_length=200, null=True)
-	username = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
-	password2 = models.CharField(max_length=20)
-	password = models.CharField(max_length=20)
-
-	USERNAME_FIELD = 'email'
-	REQUIRED_FIELDS = []
-
-class Category(models.Model):
-	name = models.CharField(max_length=255, db_index=True)
-	slug = models.SlugField(max_length=255, unique=True)
+	email = models.CharField(max_length=200, null=True)
 	
-	class Meta:
-		verbose_name_plural = 'Category'
-		
-	def get_absolute_url(self):
-		return reverse('product:detail', args=[self.slug])
-	
+
 	def __str__(self):
 		return self.name
 
 
 class Product(models.Model):
-	category = models.ForeignKey(Category,related_name='product', on_delete=models.CASCADE)
 	created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_creator')
 	title = models.CharField(max_length=255)
 	author = models.CharField(max_length=255,default='admin')
@@ -112,14 +86,3 @@ class OrderItem(models.Model):
 		return total
 
 
-class ShippingAddress(models.Model):
-	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
-	order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
-	address = models.CharField(max_length=200, null=False)
-	city = models.CharField(max_length=200, null=False)
-	state = models.CharField(max_length=200, null=False)
-	zipcode = models.CharField(max_length=200, null=False)
-	date_added = models.DateTimeField(auto_now_add=True)
-
-	def __str__(self):
-		return self.address
