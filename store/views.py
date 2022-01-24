@@ -12,10 +12,12 @@ from .models import *
 
 def main(request):
     context = {}
-    return render (request, 'store/main.html', context)
+    return render (request, 'store/home.html', context)
 
 def home(request):
-    context = {}
+    products = Product.objects.all()
+    category = Category.objects.all()
+    context = {'products':products, 'category':category}
     return render (request, 'store/home.html', context)
 
 def search(request):
@@ -82,6 +84,7 @@ def settings(request):
 def payments(request):
     context = {}
     return render(request, 'store/payments.html', context)
+
 def categories(request):
     return{
         'categories': Category.objects.all()
