@@ -11,7 +11,8 @@ from .models import *
 # Create your views here.
 
 def main(request):
-    context = {}
+    category = Category.objects.all()
+    context = {'category':category}
     return render (request, 'store/home.html', context)
 
 def home(request):
