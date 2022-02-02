@@ -64,7 +64,6 @@ class Meta:
 def get_absolute_url(self):
 	return reverse('product:detail', args=[self.slug])
    
-
 @property
 def imageurl(self):
     try:
