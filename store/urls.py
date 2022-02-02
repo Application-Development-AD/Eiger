@@ -5,7 +5,7 @@ app_name = 'store'
 
 urlpatterns = [
     path('', views.home, name="home"),
- #   path('', views.search, name="search"),
+  #  path('', views.search, name="search"),
     path('cart/', views.cart, name="cart"),
     path('registration/', views.registration_view, name="registration"),
     path('login/', views.login, name="login"),
