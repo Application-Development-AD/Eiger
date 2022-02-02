@@ -1,10 +1,5 @@
-from django.contrib.auth.forms import UsernameField
-from typing import Reversible
 from django.db import models
-from django import urls
-from django.forms.fields import EmailField
 from django.contrib.auth.models import User
-from django.urls import reverse
 
 
 class Customer(models.Model):
@@ -19,7 +14,7 @@ class Customer(models.Model):
 
 class Product(models.Model):
 	created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_creator')
-	title = models.CharField(max_length=255)
+	title = models.CharField(max_length=255, null = True)
 	author = models.CharField(max_length=255,default='admin')
 	description = models.TextField(blank=True)
 	image = models.ImageField(null=True, blank=True)
@@ -31,12 +26,12 @@ class Product(models.Model):
 	updated = models.DateTimeField(auto_now=True)
 
 
-class Meta:
-    verbose_name_plural = 'Products'
-    ordering = ('-created',)
+#class Meta:
+#    verbose_name_plural = 'Products'
+#    ordering = ('-created',)
 
-def get_absolute_url(self):
-	return reverse('product:detail', args=[self.slug])
+#def get_absolute_url(self):
+#	return reverse('product:detail', args=[self.slug])
 
 @property
 def imageURL(self):
