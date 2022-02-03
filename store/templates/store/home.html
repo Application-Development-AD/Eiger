@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+=======
 {% extends 'store/main.html'%}
+>>>>>>> 556e7108152af0c97d6043c39925b984d2b71f19
 {% load static %}
 {% block content %}
 <html>
@@ -42,10 +46,17 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">All</a>
                 
+<<<<<<< HEAD
+                {% for c in Category %}
+
+                <li> 
+                   <a class="dropdown-item" href="{{ c.get_absolute_url }}">{{ c.nametitle}}</a>
+=======
                 {% for c in category %}
 
                 <li> 
                    <a class="dropdown-item" href="{{ c.get_absolute_url }}">{{ c.name|title}}</a>
+>>>>>>> 556e7108152af0c97d6043c39925b984d2b71f19
                 </li>
 
                 {% endfor %}
@@ -99,7 +110,11 @@
     <div class="row">
 		{% for product in products %}
 		<div class="col-lg-4">
+<<<<<<< HEAD
+			<img class="thumbnail" alt="Responsive image" src="{{ product.imageurl }}">
+=======
 			<img class="thumbnail" alt="Responsive image" src="{{product.image.url}}">
+>>>>>>> 556e7108152af0c97d6043c39925b984d2b71f19
 			<div class="box-element product">
 				<h6 href="{{ product.get_absolute_url }}"><strong>{{product.title}}</strong></h6>
 				<hr>
@@ -107,8 +122,14 @@
 				<button  class="btn btn-outline-secondary add-btn">Add to Cart</button>
 				<a class="btn btn-outline-success" href="#">View</a>
 				<h4 style="display: inline-block; float: right"><strong>MYR {{product.price}}</strong></h4>
+<<<<<<< HEAD
+
+			</div>
+		  </div>
+=======
 			</div>
 		</div>
+>>>>>>> 556e7108152af0c97d6043c39925b984d2b71f19
 		{% endfor %}
     </div>
     </section>
