@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 
     'store.apps.StoreConfig',
     #'accounts',
-    'django_filter',
+    'django_filters',
     
 ]
 
