@@ -4,10 +4,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from store.forms import CreateUserForm
-import store
 from django.shortcuts import render
-from .models import *
+from django.http import JsonResponse
 
+import store
+import json
+import datetime
+
+from .models import *
+from . utils import cookieCart, cartData, guestOrder
 # Create your views here.
 
 def main(request):
@@ -16,37 +21,32 @@ def main(request):
     return render (request, 'store/home.html', context)
 
 def home(request):
+    data = cartData(request)
+    cartItems = data['cartItems']
+
     products = Product.objects.all()
-    category = Category.objects.all()
-    context = {'products':products, 'category':category}
+    context = {'products':products, 'cartItems':cartItems}
+    
     return render (request, 'store/home.html', context)
 
-def search(request):
-    context = {}
-    return render (request, 'store/search.html', context)
-
 def cart(request):
-     if request.user.is_authenticated:
-          account = request.username.account
-          order, created = Order.objects.get_or_create(account=account, complete=False)
-          items = order.orderitem_set.all()
-     else:
-          items = []
-          order ={'get_cart_total':0, 'get_cart_items':0}
+    data = cartData(request)
 
-     context = {'items' :items, 'order' : order}
-     return render(request, 'store/cart.html', context)
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items']
+    
+    context = {'items': items, 'order':order, 'cartItems':cartItems}
+    return render(request, 'store/cart.html', context)
 
 def checkout(request):
-    if request.user.is_authenticated:
-          customer = request.username.customer
-          order, created = Order.objects.get_or_create(customer=customer, complete=False)
-          items = order.orderitem_set.all()
-    else:
-          items = []
-          order ={'get_cart_total':0, 'get_cart_items':0}
-    
-    context = {'items' :items, 'order' : order}
+    data = cartData(request)
+
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items']
+
+    context = {'items': items, 'order':order ,'cartItems':cartItems}
     return render(request, 'store/checkout.html', context)
 
 def search(request):
@@ -76,13 +76,6 @@ def accountDetails(request):
     context = {}
     return render(request, 'store/accountDetails.html', context)
 
-def settings(request):
-    context = {}
-    return render(request, 'store/settings.html', context)
-
-def payments(request):
-    context = {}
-    return render(request, 'store/payments.html', context)
 
 def categories(request):
     return{
@@ -107,3 +100,63 @@ def category_list(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
     products = Product.objects.filter(category=category)
     return render(request, 'store/products/category.html', {'category':category, 'products':products})
+
+def updateItem(request):
+    data = json.loads(request.data)
+    productId = data['productId']
+    action = data['action']
+
+    print('Action:', action)
+    print('productId:', productId)
+
+    customer = request.user.customer
+    product = Product.object.get(id=productId)
+    order, created = Order.objects.get_or_create(customer=customer, complete=False)
+
+    orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+
+    if action =='add':
+        orderItem.quantity = (orderItem.quantity + 1)
+    elif action =='remove':
+        orderItem.quantity = (orderItem.quantity - 1)
+
+    orderItem.save()
+
+    if orderItem.quantity <= 0:
+        orderItem.delete()
+
+    return JsonResponse('Item was added', safe=False)
+
+#from django.views.decorators.csrf import csrf_exempt
+
+#@csrf_exempt
+def processOrder(request):
+    transaction_id = datetime.datetime.now().timestamp()
+    data = json.loads(request.body)
+
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+       
+    else:
+        customer, order = guestOrder(request, data)
+
+
+    total = float(data['form']['total'])
+    order.trandsaction_id = transaction_id
+    
+    if total == float(order.get_cart_total):
+        order.complete = True
+    order.save()
+
+    if order.shipping == True:
+        ShippingAddress.objects.create(
+            customer = customer,
+            order = order,
+            address = data['shipping']['address'],
+            city = data['shipping']['city'],
+            state = data['shipping']['state'],
+            zipcode = data['shipping']['zipcode'],
+        )
+
+    return JsonResponse('Payment Complete', safe=False)

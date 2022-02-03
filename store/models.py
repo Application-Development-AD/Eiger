@@ -24,8 +24,8 @@ class Category(models.Model):
 	class Meta:
 		verbose_name_plural = 'Category'
 		
-	#def get_absolute_url(self):
-	#	return reverse('product:detail', args=[self.slug])
+	def get_absolute_url(self):
+		return reverse('product:detail', args=[self.slug])
 	
 	def __str__(self):
 		return self.name
@@ -46,34 +46,47 @@ class Product(models.Model):
 	updated = models.DateTimeField(auto_now=True)
 
 
-class Meta:
-    verbose_name_plural = 'Products'
-    ordering = ('-created',)
+	class Meta:
+		verbose_name_plural = 'Products'
+		ordering = ('-created',)
 
-def get_absolute_url(self):
-	return reverse('product:detail', args=[self.slug])
-   
-@property
-def imageURL(self):
-    try:
-        url = self.image.url
-    except:
-        url=''
-    return url
+	def get_absolute_url(self):
+		return reverse('product:detail', args=[self.slug])
 	
-def __str__(self):
-    return self.title 
+	@property
+	def imageURL(self):
+		try:
+			url = self.image.url
+		except:
+			url=''
+		return url
+		
+	def __str__(self):
+		return self.title 
 
 
 
 class Order(models.Model):
+	STATUS = (
+		('Pending', 'Pending'),
+		('Out for Delivery', 'Out for Delivery'),
+		('Delivered', 'Delivered'),
+	)
+
 	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
 	date_ordered = models.DateTimeField(auto_now_add=True)
-	complete = models.BooleanField(default=False)
+	status = models.CharField(max_length=100, null=True, choices=STATUS)
 	transaction_id = models.CharField(max_length=100, null=True)
+	complete = models.BooleanField(default=False)
 
 	def __str__(self):
 		return str(self.id)
+
+	@property
+	def shipping (self):
+		orderitems = self.orderitem_set.all()
+		shipping = True
+		return shipping
 
 	@property
 	def get_cart_total(self):
@@ -86,12 +99,7 @@ class Order(models.Model):
 		orderitems = self.orderitem_set.all()
 		total = sum([item.quantity for item in orderitems])
 		return total
-	
-	@property
-	def shipping(self):
-		shipping = True
-		return shipping
-	
+
 
 class OrderItem(models.Model):
 	product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
