@@ -10,20 +10,12 @@ from .models import *
 
 # Create your views here.
 
-def main(request):
-    category = Category.objects.all()
-    context = {'category':category}
-    return render (request, 'store/home.html', context)
-
 def home(request):
     products = Product.objects.all()
     category = Category.objects.all()
     context = {'products':products, 'category':category}
     return render (request, 'store/home.html', context)
 
-def search(request):
-    context = {}
-    return render (request, 'store/search.html', context)
 
 def cart(request):
      if request.user.is_authenticated:
@@ -40,10 +32,6 @@ def cart(request):
 def checkout(request):
       context = {}
       return render(request, 'store/checkout.html', context)
-
-def search(request):
-     context = {}
-     return render(request, 'store/cart.html', context)
 
 # Start 
 def registration_view(request):
