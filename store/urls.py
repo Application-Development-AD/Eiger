@@ -6,4 +6,5 @@ app_name = 'store'
 urlpatterns = [
    path('', views.store, name='store'),
    path('checkout/',views.checkout, name='checkout')
+   path('user/', views.userPage, name='user-page')
 ]
