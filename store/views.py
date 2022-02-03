@@ -1,10 +1,3 @@
-from django import forms
-from django.http import response
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
-from store.forms import RegistrationForm
-import store
 from django.shortcuts import render
 from .models import *
 
@@ -33,26 +26,7 @@ def checkout(request):
       context = {}
       return render(request, 'store/checkout.html', context)
 
-# Start 
-def registration_view(request):
-    context = {}
-    if request.POST:
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            email = form.cleaned_data.get('email')
-            raw_password = form.cleaned_data.get('raw_password')
-            user = authenticate(email=email, password=raw_password)
-            login(request, user)
-            return redirect('home')
-        else:
-            context['registration_form'] = form
-    else:
-        form = RegistrationForm()
-        context['registration_form'] = form
-    return render(request, 'store/registration.html', {'form': form})
-    # return render(request, 'store/registration.html', context)
-# End
+
 
 def login(request):
     context = {}
@@ -87,13 +61,3 @@ def all_products(request):
     context = {'products':products}
     return render(request, 'store/home.html', context)
 
-#get individual product
-def product_detail(request, slug):
-    product = get_object_or_404(Product, slug=slug, in_stock=True)
-    return render(request, 'store/products/detail.html', {'product':product})
-
-#get category page
-def category_list(request, category_slug):
-    category = get_object_or_404(Category, slug=category_slug)
-    products = Product.objects.filter(category=category)
-    return render(request, 'store/products/category.html', {'category':category, 'products':products})

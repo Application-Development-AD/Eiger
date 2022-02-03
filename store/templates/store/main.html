@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 {% load static %}
 <html>
 <head>
@@ -27,10 +28,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{{url 'home'}}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'store:accountDetails' %}">My Account</a>
+              <a class="nav-link" href="#">My Account</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Products</a>
@@ -42,13 +43,13 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">All</a>
                 
-                {% for c in Category %}
+              <!--  {% for c in Category %}
 
                 <li> 
                    <a class="dropdown-item" href="{{ c.get_absolute_url }}">{{ c.nametitle}}</a>
                 </li>
 
-                {% endfor %}
+                {% endfor %}-->
               </div>
             </li>
             <li class="nav-item">
@@ -58,15 +59,15 @@
           
           
           <div class="form-inline my-2 my-lg-0">
-            <a href="{% url 'store:login' %}"class="btn btn-warning">Login</a>
+            <a href="#"class="btn btn-warning">Login</a>
                     
-            <a href="{% url 'store:cart' %}">
+            <a href="#">
             <img  id="cart-icon" src="{% static 'images/cart.png' %}">
             </a>
             <p id="cart-total">0</p>
 
             <!--Start-->
-            <a href="{% url 'store:registration' %}">
+            <a href="#">
             </a>
             <!--End-->
         
