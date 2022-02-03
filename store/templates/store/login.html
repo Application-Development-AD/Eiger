@@ -62,13 +62,14 @@
                     <div class="signin-form">
                         <h2 class="form-title">Sign In</h2>
                         <form method="POST" class="register-form" id="login-form">
+                            {% csrf_token %}
                             <div class="form-group">
-                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="Your Name"/>
+                                <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="username" id="username" placeholder="Your Name"/>
                             </div>
                             <div class="form-group">
                                 <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="pass" id="pass" placeholder="Password"/>
+                                <input type="password" name="password" id="password" placeholder="Password"/>
                             </div>
                             <span class="social-label">Forgot <a href="/forgotpassword/">password?</a></span> 
                             <div class="form-group">

@@ -9,13 +9,21 @@ from django.urls import reverse
 
 # Create your models here.
 class Customer(models.Model):
-	username = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
-	email = models.EmailField(max_length = 254)
+	username = models.CharField(max_length = 254)
+	email = models.CharField(max_length = 254)
 	password1 = models.CharField(max_length=20)
 	password2 = models.CharField(max_length=20)
 
-	USERNAME_FIELD = 'email'
-	REQUIRED_FIELDS = []
+	USERNAME_FIELD = 'username'
+	REQUIRED_FIELDS = ['username']
+
+	def save(self):
+		super().save()
+
+def user_form(sender, instance, created, **kwargs):
+	if created:
+		Customer.objects.create(user=instance)
+		instance.Customer.save()
 
 class Category(models.Model):
 	name = models.CharField(max_length=255, db_index=True)
