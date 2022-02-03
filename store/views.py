@@ -3,7 +3,7 @@ from django.http import response
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from store.forms import RegistrationForm
+from store.forms import CreateUserForm
 import store
 from django.shortcuts import render
 from .models import *
@@ -27,8 +27,8 @@ def search(request):
 
 def cart(request):
      if request.user.is_authenticated:
-          customer = request.username.customer
-          order, created = Order.objects.get_or_create(customer=customer, complete=False)
+          account = request.username.account
+          order, created = Order.objects.get_or_create(account=account, complete=False)
           items = order.orderitem_set.all()
      else:
           items = []
@@ -38,33 +38,31 @@ def cart(request):
      return render(request, 'store/cart.html', context)
 
 def checkout(request):
-      context = {}
-      return render(request, 'store/checkout.html', context)
+    if request.user.is_authenticated:
+          customer = request.username.customer
+          order, created = Order.objects.get_or_create(customer=customer, complete=False)
+          items = order.orderitem_set.all()
+    else:
+          items = []
+          order ={'get_cart_total':0, 'get_cart_items':0}
+    
+    context = {'items' :items, 'order' : order}
+    return render(request, 'store/checkout.html', context)
 
 def search(request):
      context = {}
      return render(request, 'store/cart.html', context)
 
-# Start 
-def registration_view(request):
-    context = {}
-    if request.POST:
-        form = RegistrationForm(request.POST)
+def registrationPage(request):
+    form = CreateUserForm()
+    
+    if request.method == 'POST':
+        form = form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
-            email = form.cleaned_data.get('email')
-            raw_password = form.cleaned_data.get('raw_password')
-            user = authenticate(email=email, password=raw_password)
-            login(request, user)
-            return redirect('home')
-        else:
-            context['registration_form'] = form
-    else:
-        form = RegistrationForm()
-        context['registration_form'] = form
-    return render(request, 'store/registration.html', {'form': form})
-    # return render(request, 'store/registration.html', context)
-# End
+
+    context = {'form': form}
+    return render(request, 'store/registration.html', context)
 
 def login(request):
     context = {}

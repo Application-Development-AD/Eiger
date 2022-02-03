@@ -1,14 +1,15 @@
+from pdb import post_mortem
+from pyexpat import model
 from django import forms
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
-from django.forms import models
+from django.contrib.auth.models import User
+from django.forms import ModelForm, models
 from django.forms import fields
 from django.forms.fields import EmailField
 
-from store.models import Account
+from store.models import Customer, ShippingAddress 
 
-class RegistrationForm(UserCreationForm):
-    email = forms.EmailField(max_length=60, help_text='Required. Add a valid email address')
-
+class CreateUserForm(UserCreationForm):
     class Meta:
-        model = Account
-        fields = ("email", "username", "password", "password2")
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']

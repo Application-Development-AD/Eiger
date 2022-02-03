@@ -1,3 +1,4 @@
+import email
 from django.contrib.auth.forms import UsernameField
 from typing import Reversible
 from django.db import models
@@ -6,24 +7,12 @@ from django.forms.fields import EmailField
 from django.contrib.auth.models import User
 from django.urls import reverse
 
-class Account(models.Model):
-    username = models.OneToOneField(User,null=True,blank=True,on_delete=models.CASCADE)
-    password = models.CharField(max_length=20)
-    password2 = models.CharField(max_length=20)
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
-
-
 # Create your models here.
-
-
 class Customer(models.Model):
-	#user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
-	name = models.CharField(max_length=200, null=True)
 	username = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
+	email = models.EmailField(max_length = 254)
+	password1 = models.CharField(max_length=20)
 	password2 = models.CharField(max_length=20)
-	password = models.CharField(max_length=20)
 
 	USERNAME_FIELD = 'email'
 	REQUIRED_FIELDS = []
@@ -35,8 +24,8 @@ class Category(models.Model):
 	class Meta:
 		verbose_name_plural = 'Category'
 		
-	def get_absolute_url(self):
-		return reverse('product:detail', args=[self.slug])
+	#def get_absolute_url(self):
+	#	return reverse('product:detail', args=[self.slug])
 	
 	def __str__(self):
 		return self.name
@@ -65,9 +54,9 @@ def get_absolute_url(self):
 	return reverse('product:detail', args=[self.slug])
    
 @property
-def imageurl(self):
+def imageURL(self):
     try:
-        url = self.image.models.url
+        url = self.image.url
     except:
         url=''
     return url
@@ -78,7 +67,7 @@ def __str__(self):
 
 
 class Order(models.Model):
-	customer = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True, blank=True)
+	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
 	date_ordered = models.DateTimeField(auto_now_add=True)
 	complete = models.BooleanField(default=False)
 	transaction_id = models.CharField(max_length=100, null=True)
@@ -97,7 +86,11 @@ class Order(models.Model):
 		orderitems = self.orderitem_set.all()
 		total = sum([item.quantity for item in orderitems])
 		return total
-
+	
+	@property
+	def shipping(self):
+		shipping = True
+		return shipping
 	
 
 class OrderItem(models.Model):
@@ -113,7 +106,7 @@ class OrderItem(models.Model):
 
 
 class ShippingAddress(models.Model):
-	customer = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True)
+	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
 	order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
 	address = models.CharField(max_length=200, null=False)
 	city = models.CharField(max_length=200, null=False)
