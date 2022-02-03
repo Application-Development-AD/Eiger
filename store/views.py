@@ -4,12 +4,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from store.forms import CreateUserForm
-from django.shortcuts import render
 from django.http import JsonResponse
 import json
 import datetime
 from .models import * 
-from . utils import cookieCart, cartData, guestOrder
+from . utils import *
 # Create your views here.
 
 def main(request):
@@ -18,8 +17,8 @@ def main(request):
     return render (request, 'store/home.html', context)
 
 def search(request):
-     context = {}
-     return render(request, 'store/cart.html', context)
+    context = {}
+    #return render(request, 'store/cart.html', context)
 
 def registrationPage(request):
     form = CreateUserForm()
