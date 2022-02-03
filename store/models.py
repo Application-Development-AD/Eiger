@@ -26,9 +26,9 @@ class Product(models.Model):
 	updated = models.DateTimeField(auto_now=True)
 
 
-class Meta:
-    verbose_name_plural = 'Products'
-    ordering = ('-created',)
+#class Meta:
+#    verbose_name_plural = 'Products'
+#    ordering = ('-created',)
 
 #def get_absolute_url(self):
 #	return reverse('product:detail', args=[self.slug])
@@ -47,9 +47,16 @@ def __str__(self):
 
 
 class Order(models.Model):
+
+	STATUS = (
+		('Pending', 'Pending'),
+		('Out for Delivery', 'Out for Delivery'),
+		('Delivered', 'Delivered'),
+	)
+
 	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
 	date_ordered = models.DateTimeField(auto_now_add=True)
-	complete = models.BooleanField(default=False)
+	status = models.CharField(max_length=100, null=True, choices=STATUS)
 	transaction_id = models.CharField(max_length=100, null=True)
 
 	def __str__(self):
