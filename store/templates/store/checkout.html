@@ -1,6 +1,7 @@
 {% include 'store/main.html' %}
 {% load static %}
 {% block content %}
+<div class="container">
      <div class="row">
 		<div class="col-lg-6">
 			<div class="box-element" id="form-wrapper">
@@ -64,10 +65,11 @@
 				</div>
 				{% endfor %}
 				<h5>Items:   {{order.get_cart_items}}</h5>
-				<h5>Total:   ${{order.get_cart_total|floatformat:2}}</h5>
+				<h5>Total:   MYR {{order.get_cart_total|floatformat:2}}</h5>
 			</div>
 		</div>
 	</div>
+</div>
 
 	<script src="https://www.paypal.com/sdk/js?client-id=ATTFgSt4rFAJuJM5MwqhdV9VCRSMwHhvu0WafIwHOBhM243HDlt9zWsNq50xGcpxDkjWuRS-ZR3ck5NX&currency=MYR&disable-funding=credit"></script>
 
