@@ -51,9 +51,9 @@ def cartData(request):
 
     else:
         cookieData = cookieCart(request)
-        cartItems = cookieCart['cartItems']
-        order = cookieCart['order']
-        items = cookieCart['items']
+        cartItems = cookieData['cartItems']
+        order = cookieData['order']
+        items = cookieData['items']
 
     return{'cartItems':cartItems, 'order':order, 'items': items}
 

@@ -3,8 +3,8 @@ from django.http import JsonResponse
 import json
 import datetime
 
-from .models import *
-from .utils import cookieCart, cartData, guestOrder
+from . models import *
+from . utils import cookieCart, cartData, guestOrder
 
 # Create your views here.
 def categories(request):
@@ -12,16 +12,18 @@ def categories(request):
   #  return render (request, 'store/home.html', context)
 
 def home(request):
-    data = cookieData(request)
+    data = cartData(request)
     cartItems = data['cartItems']
 
     products = Product.objects.all()
     context = {'products':products, 'cartItems':cartItems}
+    
     return render (request, 'store/home.html', context)
 
 
 def cart(request):
-    data = cookieData(request)
+    data = cartData(request)
+
     cartItems = data['cartItems']
     order = data['order']
     items = data['items']
@@ -31,7 +33,8 @@ def cart(request):
 
 
 def checkout(request):
-    data = cookieData(request)
+    data = cartData(request)
+
     cartItems = data['cartItems']
     order = data['order']
     items = data['items']
