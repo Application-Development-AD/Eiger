@@ -1,4 +1,9 @@
-{% include 'store/main.html' %}
+{% if 'username' in request.session %}
+    {% include 'store/main.html' %}
+{% else %}
+    {% include 'store/main2.html' %}
+{% endif %}
+
 {% load static %}
 {% block content %}
 <div class="container">

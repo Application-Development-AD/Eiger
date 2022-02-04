@@ -1,10 +1,9 @@
 from django import forms
 from django.http import response, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import UserCreationForm
-from store.forms import CreateUserForm
 from django.http import JsonResponse
 import json
 import datetime
@@ -12,11 +11,9 @@ from .models import *
 from . utils import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
-from .forms import OrderForm, CreateUserForm
+from .forms import NewUserForm
 from .filters import OrderFilter
 from .decorators import unauthenticated_user, allowed_users, admin_only
-from django.contrib import messages
-from django.contrib.sessions.models import Session
 
 # Create your views here.
 
@@ -29,20 +26,6 @@ def search(request):
     context = {}
     #return render(request, 'store/cart.html', context)
 
-def registrationPage(request):
-    form = CreateUserForm()
-    
-    if request.method == 'POST':
-        form = form = CreateUserForm(request.POST)
-        if form.is_valid():
-            form.save()
-
-    context = {'form': form}
-    return render(request, 'store/registration.html', context)
-
-def login(request):
-    context = {}
-    return render(request, 'store/login.html', context)
 
 def forgotpassword(request):
     context = {}
@@ -164,9 +147,6 @@ def processOrder(request):
 
 	return JsonResponse('Payment submitted..', safe=False)
 
-def logoutUser(request):
-	logout(request)
-	return redirect('/login/')
 
 @login_required(login_url='login')
 @admin_only
@@ -297,7 +277,3 @@ def logout(request):
     except:
         return render(request, 'store/home.html')
     return render(request, 'store/home.html')
-
-def forgotpassword(request):
-    context = {}
-    return render(request, 'store/forgotpassword.html', context)
