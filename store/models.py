@@ -17,6 +17,12 @@ class Customer(models.Model):
 	USERNAME_FIELD = 'email'
 	REQUIRED_FIELDS = []
 
+class Tag(models.Model):
+	name = models.CharField(max_length=200, null=True)
+
+	def __str__(self):
+		return self.name
+
 class Category(models.Model):
 	name = models.CharField(max_length=255, db_index=True)
 	slug = models.SlugField(max_length=255, unique=True)
@@ -32,6 +38,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+
 	category = models.ForeignKey(Category,related_name='product', on_delete=models.CASCADE)
 	created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_creator')
 	title = models.CharField(max_length=255)
@@ -45,6 +52,7 @@ class Product(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 	digital = models.BooleanField(default=False,null=True, blank=True)
+	tags = models.ManyToManyField(Tag)
 
 #	class Meta:
 #		verbose_name_plural = 'Products'
