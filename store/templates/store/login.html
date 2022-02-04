@@ -46,6 +46,24 @@
 
     <!-- Main css -->
     <link rel="stylesheet" href="{% static 'register/css/style.css' %}">
+    <script>
+        function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+    </script>
 </head>
 <body>
 
@@ -61,15 +79,15 @@
 
                     <div class="signin-form">
                         <h2 class="form-title">Sign In</h2>
-                        <form method="POST" class="register-form" id="login-form" >
+                        <form method="POST" class="register-form" id="login-form">
                             {% csrf_token %}
                             <div class="form-group">
-                                <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="username" id="username" placeholder="Your Name"/>
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="name" id="name" placeholder="Your Name"/>
                             </div>
                             <div class="form-group">
                                 <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="password" id="password" placeholder="Password"/>
+                                <input type="password" name="pass" id="pass" placeholder="Password"/>
                             </div>
                             <span class="social-label">Forgot <a href="/forgotpassword/">password?</a></span> 
                             <div class="form-group">

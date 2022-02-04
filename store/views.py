@@ -1,21 +1,23 @@
+import re
 from django import forms
-from django.http import response, HttpResponse
+from django.http import response
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
-from django.forms import inlineformset_factory
 from django.contrib.auth.forms import UserCreationForm
+import store
+from django.shortcuts import render
+from .models import *
+from .forms import *
+from django.contrib.auth import login
+from django.contrib import messages
+from django.contrib.sessions.models import Session
+# Create your views here.
+from store.forms import CreateUserForm
 from django.http import JsonResponse
 import json
 import datetime
-from .models import * 
+from . models import * 
 from . utils import *
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group
-from .forms import NewUserForm
-from .filters import OrderFilter
-from .decorators import unauthenticated_user, allowed_users, admin_only
-
-# Create your views here.
 
 def main(request):
     category = Category.objects.all()
@@ -26,6 +28,20 @@ def search(request):
     context = {}
     #return render(request, 'store/cart.html', context)
 
+def registrationPage(request):
+    form = CreateUserForm()
+    
+    if request.method == 'POST':
+        form = form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+    context = {'form': form}
+    return render(request, 'store/registration.html', context)
+
+def login(request):
+    context = {}
+    return render(request, 'store/login.html', context)
 
 def forgotpassword(request):
     context = {}
@@ -59,7 +75,6 @@ def category_list(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
     products = Product.objects.filter(category=category)
     return render(request, 'store/products/category.html', {'category':category, 'products':products})
-
 
 def home(request):
 	data = cartData(request)
@@ -147,96 +162,6 @@ def processOrder(request):
 
 	return JsonResponse('Payment submitted..', safe=False)
 
-
-@login_required(login_url='login')
-@admin_only
-def home(request):
-	orders = Order.objects.all()
-	customers = Customer.objects.all()
-
-	total_customers = customers.count()
-
-	total_orders = orders.count()
-	delivered = orders.filter(status='Delivered').count()
-	pending = orders.filter(status='Pending').count()
-
-	context = {'orders':orders, 'customers':customers,
-	'total_orders':total_orders,'delivered':delivered,
-	'pending':pending }
-
-	return render(request, 'store/dashboard.html', context)
-
-def userPage(request):
-	context = {}
-	return render(request, 'store/user.html', context)
-
-@login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
-def products(request):
-	products = Product.objects.all()
-
-	return render(request, 'store/products.html', {'products':products})
-
-@login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
-def customer(request, pk_test):
-	customer = Customer.objects.get(id=pk_test)
-
-	orders = customer.order_set.all()
-	order_count = orders.count()
-
-	myFilter = OrderFilter(request.GET, queryset=orders)
-	orders = myFilter.qs 
-
-	context = {'customer':customer, 'orders':orders, 'order_count':order_count,
-	'myFilter':myFilter}
-	return render(request, 'store/customer.html',context)
-
-@login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
-def createOrder(request, pk):
-	OrderFormSet = inlineformset_factory(Customer, Order, fields=('product', 'status'), extra=10 )
-	customer = Customer.objects.get(id=pk)
-	formset = OrderFormSet(queryset=Order.objects.none(),instance=customer)
-	#form = OrderForm(initial={'customer':customer})
-	if request.method == 'POST':
-		#print('Printing POST:', request.POST)
-		form = OrderForm(request.POST)
-		formset = OrderFormSet(request.POST, instance=customer)
-		if formset.is_valid():
-			formset.save()
-			return redirect('/')
-
-	context = {'form':formset}
-	return render(request, 'store/order_form.html', context)
-
-@login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
-def updateOrder(request, pk):
-
-	order = Order.objects.get(id=pk)
-	form = OrderForm(instance=order)
-
-	if request.method == 'POST':
-		form = OrderForm(request.POST, instance=order)
-		if form.is_valid():
-			form.save()
-			return redirect('/')
-
-	context = {'form':form}
-	return render(request, 'store/order_form.html', context)
-
-@login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
-def deleteOrder(request, pk):
-	order = Order.objects.get(id=pk)
-	if request.method == "POST":
-		order.delete()
-		return redirect('/')
-
-	context = {'item':order}
-	return render(request, 'store/delete.html', context)
-
 def register_request(request):
     if request.method=='POST':
         username = request.POST.get('username')
@@ -277,3 +202,7 @@ def logout(request):
     except:
         return render(request, 'store/home.html')
     return render(request, 'store/home.html')
+
+def forgotpassword(request):
+    context = {}
+    return render(request, 'store/forgotpassword.html', context)
